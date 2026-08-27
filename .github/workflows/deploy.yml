@@ -1,11 +1,13 @@
 # Builds the static site and publishes it to GitHub Pages on every push to main.
 #
-# One-time setup in the repo:
-#   Settings → Pages → Source: "GitHub Actions"
-#   Settings → Pages → Custom domain: capa.briam.cloud  (then tick "Enforce HTTPS")
-#   DNS for briam.cloud:  CNAME capa → bryant-anjos.github.io.
-#     (Cloudflare: keep that record "DNS only" / grey cloud, or use SSL mode
-#      "Full" if you proxy it.)
+# One-time setup in the repo (Pages Source is already "GitHub Actions"):
+#   1. DNS for briam.cloud:  CNAME  capa → bryant-anjos.github.io.
+#      (Cloudflare: keep it "DNS only" / grey cloud, or SSL mode "Full" if proxied.)
+#   2. Settings → Pages → Custom domain: capa.briam.cloud  → Save
+#      then tick "Enforce HTTPS" once GitHub finishes issuing the certificate.
+#
+# The build uses a relative base (vite.config.ts), so it also works as-is at
+# https://bryant-anjos.github.io/cover-studio/ before the domain is set.
 name: Deploy to GitHub Pages
 
 on:
