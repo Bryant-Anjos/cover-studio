@@ -1,0 +1,381 @@
+:root {
+  --bg: #0e0b10;
+  --panel: #17141c;
+  --panel-2: #1f1b26;
+  --line: #2c2733;
+  --text: #ece7f1;
+  --muted: #9a91a6;
+  --accent: #ff2d9b;
+  --accent-2: #22d3ee;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.45 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+.loading {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: var(--muted);
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 16px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-sub {
+  font-weight: 400;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.tabs button {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--muted);
+  padding: 7px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.tabs button.active {
+  background: var(--panel-2);
+  color: var(--text);
+  border-color: var(--line);
+}
+
+.workspace {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.stage {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  min-width: 0;
+  background:
+    radial-gradient(1200px 600px at 30% -10%, #221a26, transparent),
+    var(--bg);
+  overflow: auto;
+}
+
+.stage-canvas {
+  background:
+    conic-gradient(from 0deg, #3a3340 0 25%, #2b2531 0 50%) 0 0 / 24px 24px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.logo-stage .stage-canvas {
+  cursor: grab;
+}
+
+.sidebar {
+  width: 340px;
+  flex-shrink: 0;
+  background: var(--panel);
+  border-left: 1px solid var(--line);
+  overflow-y: auto;
+}
+
+.controls {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.controls section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.controls section:last-child {
+  border-bottom: none;
+}
+
+.editor-card {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px !important;
+}
+
+h3 {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field-label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.field-hint {
+  font-style: normal;
+  opacity: 0.7;
+  font-size: 11px;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+select,
+.num-input,
+.color-text,
+.slider-num {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  color: var(--text);
+  border-radius: 7px;
+  padding: 6px 8px;
+  font: inherit;
+  width: 100%;
+}
+
+input[type='range'] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.slider-row {
+  display: grid;
+  grid-template-columns: 1fr 64px;
+  gap: 8px;
+  align-items: center;
+}
+
+.slider-num {
+  padding: 4px 6px;
+  font-size: 12px;
+}
+
+.slider-suffix {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.color-row {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 8px;
+  align-items: center;
+}
+
+input[type='color'] {
+  width: 40px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: none;
+}
+
+.btn {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 9px 12px;
+  cursor: pointer;
+  font: inherit;
+  text-align: center;
+}
+
+.btn:hover {
+  border-color: #4a4356;
+}
+
+.btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+.btn.ghost {
+  background: transparent;
+  font-size: 12px;
+  padding: 7px 10px;
+}
+
+.btn.danger-ghost {
+  background: transparent;
+  color: #ff7a9c;
+  border-color: #4a2b38;
+  font-size: 12px;
+}
+
+.stack-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.stack-btns .btn {
+  flex: 1;
+  min-width: 96px;
+}
+
+.segmented {
+  display: flex;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.segmented button {
+  flex: 1;
+  background: var(--panel-2);
+  border: none;
+  color: var(--muted);
+  padding: 7px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.segmented button.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  width: fit-content;
+}
+
+.stepper button {
+  background: var(--panel-2);
+  border: none;
+  color: var(--text);
+  width: 34px;
+  height: 32px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.stepper button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.stepper span {
+  min-width: 32px;
+  text-align: center;
+}
+
+.layer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.layer-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 10px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.layer-list li.active {
+  border-color: var(--accent-2);
+}
+
+.layer-list li button {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 0;
+}
+
+.checker {
+  background:
+    conic-gradient(from 0deg, #d9d9d9 0 25%, #f5f5f5 0 50%) 0 0 / 20px 20px;
+  border-radius: 8px;
+  padding: 8px;
+  width: fit-content;
+}
+
+.checker canvas {
+  display: block;
+}
