@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Editor local de imagens de capa: colagem diagonal + recorte de logo redonda. Roda inteiro no navegador.",
+  "packageManager": "pnpm@10.11.0",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
