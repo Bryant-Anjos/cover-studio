@@ -99,7 +99,9 @@ body {
   background:
     radial-gradient(1200px 600px at 30% -10%, #221a26, transparent),
     var(--bg);
-  overflow: auto;
+  /* hidden, not auto: the canvas is always sized to fit this box, so a
+     transient scrollbar would only feed the resize loop */
+  overflow: hidden;
 }
 
 .stage-canvas {
@@ -378,4 +380,113 @@ input[type='color'] {
 
 .checker canvas {
   display: block;
+}
+
+.stage-canvas {
+  max-width: 100%;
+}
+
+/* ── Narrow screens / phones ──────────────────────────────────────────────
+   The side panel drops below the canvas and the whole page scrolls; the
+   canvas stays pinned at the top so you can see the edit while dragging the
+   sliders under it. */
+@media (max-width: 860px) {
+  html,
+  body,
+  #root {
+    height: auto;
+    min-height: 100%;
+  }
+
+  .app {
+    height: auto;
+    min-height: 100%;
+  }
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    padding: 8px 12px;
+  }
+
+  .brand {
+    font-size: 14px;
+  }
+
+  .brand-sub {
+    display: none;
+  }
+
+  .workspace {
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .stage {
+    position: sticky;
+    top: 49px;
+    z-index: 2;
+    flex: none;
+    /* svh, not vh/dvh: a unit that does NOT change as the mobile URL bar
+       animates, so scrolling doesn't resize the canvas */
+    height: 42svh;
+    min-height: 220px;
+    padding: 10px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .sidebar {
+    width: 100%;
+    overflow-y: visible;
+    border-left: none;
+  }
+
+  .controls {
+    padding: 12px;
+    gap: 14px;
+  }
+
+  /* the editor for whatever is selected floats to the top on mobile, so you
+     don't scroll past every global control to reach it */
+  .editor-card {
+    order: -1;
+  }
+
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+
+  /* bigger touch targets for range thumbs and the numeric field */
+  input[type='range'] {
+    height: 28px;
+  }
+
+  .slider-row {
+    grid-template-columns: 1fr 56px;
+  }
+
+  .btn {
+    padding: 11px 12px;
+  }
+}
+
+/* Coarse pointers (touch): give buttons and inputs more height regardless of
+   viewport width. */
+@media (pointer: coarse) {
+  .btn,
+  select,
+  .num-input,
+  .color-text {
+    min-height: 40px;
+  }
+
+  .segmented button {
+    padding: 10px 7px;
+  }
+
+  .stepper button {
+    width: 40px;
+    height: 40px;
+  }
 }

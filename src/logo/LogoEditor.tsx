@@ -39,12 +39,26 @@ export function LogoEditor({ value: logo, onChange, onReset }: LogoEditorProps) 
   useLayoutEffect(() => {
     const el = containerRef.current
     if (!el) return
-    const measure = () =>
-      setBox({ w: el.clientWidth - 24, h: el.clientHeight - 24 })
+    let raf = 0
+    const measure = () => {
+      const w = Math.max(0, el.clientWidth - 24)
+      const h = Math.max(0, el.clientHeight - 24)
+      // only re-render on a real change, or the ResizeObserver ↔ setState pair
+      // thrashes while a mobile URL bar animates in/out on scroll
+      setBox((prev) =>
+        Math.abs(prev.w - w) < 1 && Math.abs(prev.h - h) < 1 ? prev : { w, h },
+      )
+    }
     measure()
-    const ro = new ResizeObserver(measure)
+    const ro = new ResizeObserver(() => {
+      cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(measure)
+    })
     ro.observe(el)
-    return () => ro.disconnect()
+    return () => {
+      cancelAnimationFrame(raf)
+      ro.disconnect()
+    }
   }, [])
 
   // main preview with circle overlay

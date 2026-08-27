@@ -72,17 +72,27 @@ export function CollageEditor({
   useLayoutEffect(() => {
     const el = containerRef.current
     if (!el) return
+    let raf = 0
     const measure = () => {
       const pad = 32
       const availW = el.clientWidth - pad
       const availH = el.clientHeight - pad
-      const s = Math.min(availW / value.width, availH / value.height)
-      setViewScale(s > 0 ? s : 0.05)
+      const next = Math.min(availW / value.width, availH / value.height)
+      const s = next > 0 ? next : 0.05
+      // guard against the ResizeObserver ↔ setState loop a mobile URL bar
+      // triggers on scroll
+      setViewScale((prev) => (Math.abs(prev - s) < 0.0005 ? prev : s))
     }
     measure()
-    const ro = new ResizeObserver(measure)
+    const ro = new ResizeObserver(() => {
+      cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(measure)
+    })
     ro.observe(el)
-    return () => ro.disconnect()
+    return () => {
+      cancelAnimationFrame(raf)
+      ro.disconnect()
+    }
   }, [value.width, value.height])
 
   // render
