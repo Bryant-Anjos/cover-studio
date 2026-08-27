@@ -12,7 +12,19 @@ pnpm install
 pnpm dev            # abre em http://localhost:5180
 ```
 
-Build estático (opcional): `pnpm build` → `dist/`.
+Build estático: `pnpm build` → `dist/`.
+
+## Deploy
+
+`.github/workflows/deploy.yml` publica o `dist/` no **GitHub Pages** a cada push
+na `main`. Configuração única no repositório:
+
+- Settings → Pages → Source: **GitHub Actions**
+- Settings → Pages → Custom domain: `capa.briam.cloud` (depois marque *Enforce HTTPS*)
+- DNS de `briam.cloud`: `CNAME capa → bryant-anjos.github.io.`
+
+O domínio também está fixado em `public/CNAME` — troque ali se usar outro
+subdomínio. É tudo estático, então não há back-end para hospedar.
 
 ## Duas ferramentas
 
