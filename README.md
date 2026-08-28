@@ -30,6 +30,17 @@ Para o domínio próprio `capa.briam.cloud`:
 O `base` é relativo (`vite.config.ts`), então o build serve tanto no domínio
 raiz quanto no caminho `/cover-studio/`. É tudo estático — não há back-end.
 
+## PWA
+
+É um **PWA instalável** (via `vite-plugin-pwa`), só para abrir sem digitar a URL
+— sem objetivo comercial nem distribuição. No Chrome/Edge aparece o ícone de
+instalar na barra de endereço; no celular, *Adicionar à tela inicial*. O service
+worker faz precache de todo o bundle (funciona offline) e se atualiza sozinho a
+cada deploy (`registerType: 'autoUpdate'`).
+
+Ícones em `public/` (`pwa-192.png`, `pwa-512.png`, `maskable-512.png`,
+`apple-touch-icon.png`, `favicon.svg`) — gerados a partir do tema do app.
+
 ## Duas ferramentas
 
 ### Colagem
